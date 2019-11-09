@@ -1,0 +1,99 @@
+DROP USER DungeonMaster CASCADE;
+/************************************
+Users creation 
+************************************/
+CREATE USER ReqMaster
+IDENTIFIED BY pass
+DEFAULT TABLESPACE users
+TEMPORARY TABLESPACE temp
+QUOTA 10M ON users;
+GRANT CONNECT TO ReqMaster;
+GRANT RESOURCE TO ReqMaster;
+GRANT CREATE SESSION TO ReqMaster;
+GRANT CREATE TABLE TO ReqMaster;
+GRANT CREATE VIEW TO ReqMaster;
+conn ReqMaster/pass;
+/************************************
+Tables and sequences
+************************************/
+
+CREATE SEQUENCE req_user_role_id_seq;
+CREATE TABLE req_user_role (
+    req_user_role_id INT PRIMARY KEY NOT NULL,
+    user_role VARCHAR2(20) NOT NULL
+);
+Create SEQUENCE req_type_id_seq;
+CREATE TABLE req_type (
+    req_type_id INT PRIMARY KEY NOT NULL,
+    req_type VARCHAR2(40) NOT NULL
+);
+
+Create SEQUENCE req_status_id_seq;
+CREATE TABLE req_status (
+    req_status_id INT PRIMARY KEY NOT NULL,
+    req_status VARCHAR2(40) NOT NULL
+);
+CREATE SEQUENCE users_id_seq;
+CREATE TABLE user_table (
+    user_id INT PRIMARY KEY,
+    username VARCHAR2(20) UNIQUE NOT NULL,
+    password VARCHAR2(20) NOT NULL,
+    race VARCHAR2(20) NOT NULL,
+    class_type VARCHAR2(20) NOT NULL,
+    role_type INT REFERENCES user_role (req_user_role_id) NOT NULL 
+);
+
+CREATE SEQUENCE req_id_seq;
+CREATE TABLE request (
+    req_id INT PRIMARY KEY NOT NULL,
+    req_value INT NOT NULL,
+    req_submitted TIMESTAMP SELECT LOCALTIMESTAMP FROM DUAL NOT NULL,
+    req_approved TIMESTAMP SELECT LOCALTIMESTAMP FROM DUAL NOT NULL,
+    req_memo VARCHAR2(500) NOT NULL,
+    req_author VARCHAR2(40) REFERENCES user (user_id) NOT NULL,
+    req_resolver VARCHAR2(40) REFERENCES user (user_id) NOT NULL,
+    req_status_id VARCHAR2(40) REFERENCES req_status (req_status_id) NOT NULL,
+    req_type_id INT REFERENCES req_type (req_type_id) NOT NULL
+);
+/*******************************************************
+Data
+*******************************************************/
+
+INSERT INTO req_user_role (req_user_role_id, user_role) 
+    VALUES (req_user_role_id_seq.nextval, 'admin');
+INSERT INTO req_user_role (req_user_role_id, user_role) 
+    VALUES (req_user_role_id_seq.nextval, 'user'); 
+
+INSERT INTO req_type (req_type_id, req_type) 
+    VALUES (req_type_id_seq.nextval, 'magic item'); 
+INSERT INTO req_type (req_type_id, req_type) 
+    VALUES (req_type_id_seq.nextval, 'pets');
+INSERT INTO req_type (req_type_id, req_type) 
+    VALUES (req_type_id_seq.nextval, 'housing');
+INSERT INTO req_type (req_type_id, req_type) 
+    VALUES (req_type_id_seq.nextval, 'feast');
+INSERT INTO req_type (req_type_id, req_type) 
+    VALUES (req_type_id_seq.nextval, 'other');
+
+INSERT INTO req_status (req_status_id, req_status) 
+    VALUES (req_status_id_seq.nextval, 'approved');
+INSERT INTO req_status (req_status_id, req_status) 
+    VALUES (req_status_id_seq.nextval, 'pending');
+INSERT INTO req_status (req_status_id, req_status) 
+    VALUES (req_status_id_seq.nextval, 'denied');
+
+INSERT INTO user_table (user_id, username, password, race, class_type, role_type)
+    VALUES (user_id_seq.nextval, 'DM', 'pass', 'God', 'God type', 1);    
+INSERT INTO user_table (user_id, username, password, race, class_type, role_type)
+    VALUES (user_id_seq.nextval, 'Senetir', 'pass', 'Half-Elf', 'Cleric', 2);    
+INSERT INTO user_table (user_id, username, password, race, class_type, role_type)
+    VALUES (user_id_seq.nextval, 'Air26', 'pass', 'Dragonborn', 'Barbarian', 2);
+INSERT INTO user_table (user_id, username, password, race, class_type, role_type)
+    VALUES (user_id_seq.nextval, 'Timotheus', 'pass', 'Warforged', 'Monk', 2);   
+INSERT INTO user_table (user_id, username, password, race, class_type, role_type)
+    VALUES (user_id_seq.nextval, 'Irapos', 'pass', 'Goliath', 'Barbarian', 2);   
+INSERT INTO user_table (user_id, username, password, race, class_type, role_type)
+    VALUES (user_id_seq.nextval, 'Arbin', 'pass', 'Dragonborn', 'Paladin', 2);   
+INSERT INTO user_table (user_id, username, password, race, class_type, role_type)
+    VALUES (user_id_seq.nextval, 'Roger Farstar', 'pass', 'Human', 'Sorcerer', 2);
+commit;

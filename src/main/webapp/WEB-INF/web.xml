@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	<display-name>RequestApp</display-name>
+	
+	<servlet>
+		<servlet-name>AuthUtilServlet</servlet-name>
+		<servlet-class>com.revature.servlets.AuthUtilServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UserServlet</servlet-name>
+		<servlet-class>com.revature.servlets.UserServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>RequestServlet</servlet-name>
+		<servlet-class>com.revature.servlets.RequestServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AuthUtilServlet</servlet-name>
+		<url-pattern>/auth/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RequestServlet</servlet-name>
+		<url-pattern>/requests/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserServlet</servlet-name>
+		<url-pattern>/users/*</url-pattern>
+	</servlet-mapping>
+
+</web-app>

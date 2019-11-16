@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.daos.UserDao;
 import com.revature.models.User;
 
@@ -31,10 +32,9 @@ public class AuthUtilServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("uri = " + req.getRequestURI());
 		if ("/RequestApp/auth/login".equals(req.getRequestURI())) {
-			com.fasterxml.jackson.databind.ObjectMapper om = new com.fasterxml.jackson.databind.ObjectMapper();
+			ObjectMapper om = new ObjectMapper();
 			User credentials = (User) om.readValue(req.getReader(), User.class);
-			System.out.println(credentials + "Credentials here");
-			User loggedInUser = userDao.findByUsernameAndPassword(credentials.getUsername(), credentials.getPassword());
+			User loggedInUser = userDao.findByUsernameAndPassword(credentials.getUsername(), credentials.getPassword())
 			System.out.println(loggedInUser);
 			if (loggedInUser == null) {
 				resp.setStatus(401); // Unauthorized status code
@@ -52,7 +52,7 @@ public class AuthUtilServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("hello77");
 		if ("/RequestApp/auth/session-user".equals(req.getRequestURI())) {
-			com.fasterxml.jackson.databind.ObjectMapper om = new com.fasterxml.jackson.databind.ObjectMapper();
+			ObjectMapper om = new ObjectMapper();
 			String json = om.writeValueAsString(req.getSession().getAttribute("user"));
 			resp.getWriter().write(json);
 		}

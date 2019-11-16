@@ -12,7 +12,7 @@ function getCurrentUserInfo() {
     })
     .catch(err => {
         console.log(err);
-        //window.location = '/RequestApp/API/Login.html';
+        window.location = '/RequestApp/API/Login.html';
     })
 }
 

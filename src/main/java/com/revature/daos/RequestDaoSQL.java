@@ -40,7 +40,7 @@ public class RequestDaoSQL implements RequestDao {
 
 
 	@Override
-	public int save(Request r) {
+	public List<Request> save(Request r) {
 		try (Connection c = ConnectionUtil.getConnection()) {
 
 			String sql = "INSERT INTO request_table (req_id, req_name, req_value, req_submitted, req_approved, req_memo, req_author, req_resolver, req_status_id, req_type_id)"
@@ -58,9 +58,9 @@ public class RequestDaoSQL implements RequestDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return 0;
+			return null;
 		}
-		return 0;
+		return null ;
 	}
 
 	@Override
@@ -168,7 +168,7 @@ public class RequestDaoSQL implements RequestDao {
 			String sql = "UPDATE request_table SET (req_status_id = ?,req_approved = TO_TIMESTAMP(LOCALTIMESTAMP, 'DD-MON-RR HH.MI.SSXFF PM'),  )"
 					+ "    WHERE (req_id = ?)";
 			PreparedStatement ps = c.prepareStatement(sql);
-
+			 	
 			ps.setInt(1, req_status_id);
 			ps.setInt(2, req_id);
 

@@ -22,7 +22,7 @@ public class RequestServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		if ("/RequestApp/requests".equals(req.getRequestURI())) {
+		if ("/RequestApi/requests".equals(req.getRequestURI())) {
 			List<Request> request;
 			
 			String userName = req.getParameter("userName");
@@ -41,7 +41,7 @@ public class RequestServlet extends HttpServlet {
 
 			System.out.println("uri = " + req.getRequestURI());
 		}
-		if ("/RequestApp/auth/login".equals(req.getRequestURI())) {
+		if ("/RequestApi/auth/login".equals(req.getRequestURI())) {
 			ObjectMapper om = new ObjectMapper();
 			User credentials = (User) om.readValue(req.getReader(), User.class);
 			User loggedInUser = userDao.findByUsernameAndPassword(credentials.getUsername(), credentials.getPassword());
@@ -54,6 +54,22 @@ public class RequestServlet extends HttpServlet {
 				resp.getWriter().write(om.writeValueAsString(loggedInUser));
 				return;
 			}
+		}
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if ("/RequestApi/requests/submit".equals(req.getRequestURI())) {
+			List<Request> request;
+			
+			ObjectMapper om = new ObjectMapper();
+			Request r = (Request) om.readValue(req.getReader(), Request.class);
+			
+			request = requestDao.save(r);
+			
+			String json = om.writeValueAsString(request);
+			resp.getWriter().write(json);
+			resp.setStatus(201); 
 		}
 	}
 }

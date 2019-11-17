@@ -1,31 +1,5 @@
 let currentUser;
 
-
-
-function newRequestSubmit(){
-	 event.preventDefault(); // stop page from refreshing
-	    console.log('submitted');
-	    
-	    const request = getRequestFromInputs();
-	    addRequestToTableSafe(pokemon);
-	    console.log(request);
-}
-function getRequestFromInputs() {
-    const requestName = document.getElementById('request-name-input').value;
-    const requestValue = document.getElementById('prequest-value-input').value;
-    const requestMemo = document.getElementById('request-memo-input').value;
-    const requestType = document.getElementById('request-type-select').value;
-    const requestAuthor = currentUser.username;
-    
-    const request = {
-        name: requestName,
-        value: requestValue,
-        memo: requestMemo,
-        type: requestType,
-        author: requestAuthor
-    }
-    return request;
-}
 function addRequestToTableSafe(request) {
 
     // create the row element
@@ -60,13 +34,28 @@ function addRequestToTableSafe(request) {
    statusData.innerText = request.req_status_id_name;
    row.appendChild(trainerData);
 
+   if(req_status_id_name != 'pending'){
+    const approveButton = document.createElement('button');
+    approveButton.innerText = 'Approve';
+    approveButton.setAttribute('onclick', 'approve(this.value)')
+    approveButton.setAttribute('class', 'btn btn-lg btn-success btn-block')
+    approveButton.setAttribute('value', `${request.req_status_id_name}`)
+    row.appendChild(approveButton);
+
+    const denyButton = document.createElement('button');
+    denyButton.innerText = 'Deny';
+    denyButton.setAttribute('onclick', 'deny(this.value)')
+    denyButton.setAttribute('class', 'btn btn-lg btn-danger btn-block')
+   denyButton.setAttribute('value', `${request.req_status_id_name}`)
+    row.appendChild(denyButton);
+}
+
+   }
+
     // append the row into the table
     document.getElementById('request-table').appendChild(row);
 }
-function newSubmitRequest(){
 
-
-}
 function refreshTable() {
     fetch(`http://localhost:8080/RequestApi/requests?user=${currentUser.username}`)
         .then(res => res.json())
@@ -77,6 +66,7 @@ function refreshTable() {
 }
 
 function refreshTableAdmin() {
+    removeBlock()
     fetch('http://localhost:8080/RequestApi/requests/')
         .then(res => res.json())
         .then(data => {
@@ -84,7 +74,9 @@ function refreshTableAdmin() {
         })
         .catch(console.log);
 }
-
+function removeBlock(){
+    document.getElementById('approvalButton').style.display = 'blocked';
+}
 
 function getCurrentUserInfo() {
    fetch('http://localhost:8080/RequestApi/auth/session-user', {

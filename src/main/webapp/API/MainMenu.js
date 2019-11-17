@@ -4,7 +4,7 @@ function newRequestSubmit(event) {
     event.preventDefault(); // stop page from refreshing
     console.log('submitted');
     
-    const request = getrequestFromInputs();
+    const request = getRequestFromInputs();
 
     fetch('http://localhost:8080/RequestApi/requests/submit', {
         method: 'POST',
@@ -15,7 +15,7 @@ function newRequestSubmit(event) {
     })
     .then(res => res.json())
     .then(data => {
-        addPokemonToTableSafe(data);
+        
         console.log(data);
     })
     .catch(err => console.log(err));
@@ -23,7 +23,7 @@ function newRequestSubmit(event) {
     
 }
 
-function getPokemonFromInputs() {
+function getRequestFromInputs() {
     const requestName = document.getElementById('Request-name-input').value;
     const requestValue = document.getElementById('request-value-input').value;
     const memo = document.getElementById('request-memo-input').value;

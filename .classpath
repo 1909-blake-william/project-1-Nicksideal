@@ -13,14 +13,19 @@
 	</classpathentry>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
-			<attribute name="test" value="true"/>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
 		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
@@ -29,11 +34,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/nicks/OneDrive/Desktop/jackson-databind-jackson-databind-2.10.1/target/jackson-databind-2.10.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

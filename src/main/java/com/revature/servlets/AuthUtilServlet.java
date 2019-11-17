@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.revature.daos.UserDao;
 import com.revature.models.User;
 
@@ -32,11 +31,11 @@ public class AuthUtilServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("uri = " + req.getRequestURI());
-		if ("/RequestApp/auth/login".equals(req.getRequestURI())) {
-			Gson gson = new Gson();
-			//ObjectMapper om = new ObjectMapper();
-//			User credentials = (User) om.readValue(req.getReader(), User.class);
-			User credentials = (User) gson.fromJson(req.getReader(), User.class);
+		if ("/RequestApi/auth/login".equals(req.getRequestURI())) {
+			//Gson gson = new Gson();
+			ObjectMapper om = new ObjectMapper();
+			User credentials = (User) om.readValue(req.getReader(), User.class);
+			//User credentials = (User) gson.fromJson(req.getReader(), User.class);
 			User loggedInUser = userDao.findByUsernameAndPassword(credentials.getUsername(), credentials.getPassword());
 			System.out.println(loggedInUser);
 			if (loggedInUser == null) {
@@ -45,8 +44,8 @@ public class AuthUtilServlet extends HttpServlet{
 			} else {
 				resp.setStatus(201);
 				req.getSession().setAttribute("user", loggedInUser);
-//				resp.getWriter().write(om.writeValueAsString(loggedInUser));
-				resp.getWriter().write(gson.toJson(loggedInUser));
+				resp.getWriter().write(om.writeValueAsString(loggedInUser));
+//				resp.getWriter().write(gson.toJson(loggedInUser));
 				return;
 			}
 		}
@@ -55,11 +54,11 @@ public class AuthUtilServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("hello77");
-		if ("/RequestApp/auth/session-user".equals(req.getRequestURI())) {
-			//ObjectMapper om = new ObjectMapper();
-			Gson gson = new Gson();
-//			String json = om.writeValueAsString(req.getSession().getAttribute("user"));
-			String json = gson.toJson(req.getSession().getAttribute("user"));
+		if ("/RequestApi/auth/session-user".equals(req.getRequestURI())) {
+			ObjectMapper om = new ObjectMapper();
+//			Gson gson = new Gson();
+			String json = om.writeValueAsString(req.getSession().getAttribute("user"));
+//			String json = gson.toJson(req.getSession().getAttribute("user"));
 			resp.getWriter().write(json);
 		}
 	}

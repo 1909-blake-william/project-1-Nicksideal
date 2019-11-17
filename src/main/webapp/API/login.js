@@ -9,7 +9,7 @@ function login() {
 
 
     event.preventDefault()
-    fetch('http://localhost:8080/RequestApp/auth/login', { 
+    fetch('http://localhost:8080/RequestApi/auth/login', { 
 
         method: 'POST',
         headers: {

@@ -1,0 +1,4 @@
+#approvalButton {
+     /* blocked when admin is in page */
+    display: none 
+}

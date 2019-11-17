@@ -8,7 +8,7 @@ public interface RequestDao {
 	
 	RequestDao currentImplementation = new RequestDaoSQL();
 	
-	int save(Request r);
+	List<Request> save(Request r);
 	
 	List<Request> findAll();
 	

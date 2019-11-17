@@ -21,7 +21,7 @@ function login() {
         .then(resp => {
             console.log("navigate to main menu");
             
-            window.location = '/RequestApp/API/MainMenu.html';
+           // window.location = '/RequestApp/API/MainMenu.html';
             
         })
         .catch(err=>{

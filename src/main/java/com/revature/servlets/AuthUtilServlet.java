@@ -56,7 +56,7 @@ public class AuthUtilServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("hello77");
 		if ("/RequestApp/auth/session-user".equals(req.getRequestURI())) {
-			ObjectMapper om = new ObjectMapper();
+			//ObjectMapper om = new ObjectMapper();
 			Gson gson = new Gson();
 //			String json = om.writeValueAsString(req.getSession().getAttribute("user"));
 			String json = gson.toJson(req.getSession().getAttribute("user"));

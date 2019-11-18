@@ -14,7 +14,7 @@ import com.revature.models.User;
 public class AuthUtilServlet extends HttpServlet{
 	
 	private UserDao userDao = UserDao.currentImplementation;
-	
+	public AuthUtilServlet() { new ObjectMapper(); }
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//System.out.println("uri = " + req.getRequestURI());
@@ -35,7 +35,10 @@ public class AuthUtilServlet extends HttpServlet{
 			//Gson gson = new Gson();
 			ObjectMapper om = new ObjectMapper();
 			User credentials = (User) om.readValue(req.getReader(), User.class);
+			
+			System.out.println("credentials received " + credentials.getUsername());
 			//User credentials = (User) gson.fromJson(req.getReader(), User.class);
+			//User loggedInUser = userDao.findByUsernameAndPassword(credentials.getUsername(), credentials.getPassword());
 			User loggedInUser = userDao.findByUsernameAndPassword(credentials.getUsername(), credentials.getPassword());
 			System.out.println(loggedInUser);
 			if (loggedInUser == null) {
@@ -49,6 +52,14 @@ public class AuthUtilServlet extends HttpServlet{
 				return;
 			}
 		}
+		if ("/RequestApi/auth/logout".equals(req.getRequestURI())) {
+			
+			resp.setStatus(201); // success code
+			req.getSession().invalidate();
+			return;
+			}
+		
+		
 	}
 	
 	@Override

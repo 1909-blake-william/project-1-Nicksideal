@@ -12,7 +12,7 @@ public class TestDriver {
 		RequestDao requestDao = RequestDao.currentImplementation;
 		
 		
-		int r= 2;
+		
 		System.out.println(requestDao.findAll());
 	}
 

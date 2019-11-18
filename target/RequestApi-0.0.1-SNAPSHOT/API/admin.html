@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Request System</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarsExample05" aria-controls="navbarsExample05"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarsExample05">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" href="MainMenu.html">Home <span
+						class="sr-only">(current)</span></a></li>
+			</ul>
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" href="View-Request.html">Request History <span
+						class="sr-only">(current)</span></a></li>
+			</ul>
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" href="admin.html">Admin <span
+						class="sr-only">(current)</span></a></li>
+			</ul>
+			<form class="form-inline my-2 my-md-0">
+				<input class="form-control" type="text" placeholder="Search">
+			</form>
+		</div>
+	</nav>
+	<table class="table" id="request-table">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col">Request Type</th>
+				<th scope="col">Name</th>
+				<th scope="col">Value</th>
+				<th scope="col">Submission Timestamp</th>
+				<th scope="col">Approval Timestamp</th>
+				<th scope="col">Memo</th>
+				<th scope="col">Status of Request</th>
+				<th scope="col" id = "approvalButton">Approval</th>
+			</tr>
+		</thead>
+		<tbody id="request-table-body">
+		</tbody>
+	</table>
+</body>
+</html>

@@ -23,6 +23,23 @@ function newRequestSubmit(event) {
     
 }
 
+function logout() {
+    
+    console.log('logout function')
+    fetch('http://localhost:8080/ReimbursementApi/auth/logout', {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        
+        credentials: 'include', 
+    })
+        .then(resp => {
+           
+            getCurrentUserInfo();
+          
+        })
+}
 function getRequestFromInputs() {
     const requestName = document.getElementById('Request-name-input').value;
     const requestValue = document.getElementById('request-value-input').value;

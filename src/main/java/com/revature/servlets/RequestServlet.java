@@ -72,4 +72,20 @@ public class RequestServlet extends HttpServlet {
 			resp.setStatus(201); 
 		}
 	}
+	
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if("/RequestApi/requests/approve".equals(req.getRequestURI())) {
+			
+			
+			ObjectMapper om = new ObjectMapper();
+			Request update = (Request) om.readValue(req.getReader(), Request.class);
+			
+			int req_id = update.getReq_id();
+			int req_type_id = update.getReq_status_id();
+			
+			requestDao.evaluateRequest(req_id, req_type_id);
+		}
+	}
+	
 }

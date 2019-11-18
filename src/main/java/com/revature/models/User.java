@@ -7,12 +7,12 @@ public class User {
 	private String password;
 	private String race;
 	private String class_type;
-	private UserRole userRole;
+	private String userRole;
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public User(int user_id, String username, String password, String race, String class_type, UserRole userRole) {
+	public User(int user_id, String username, String password, String race, String class_type, String userRole) {
 		super();
 		this.user_id = user_id;
 		this.username = username;
@@ -101,10 +101,10 @@ public class User {
 	public void setClass_type(String class_type) {
 		this.class_type = class_type;
 	}
-	public UserRole getUserRole() {
+	public String getUserRole() {
 		return userRole;
 	}
-	public void setUserRole(UserRole userRole) {
+	public void setUserRole(String userRole) {
 		this.userRole = userRole;
 	}
 	@Override
@@ -112,6 +112,6 @@ public class User {
 		return "User [user_id=" + user_id + ", username=" + username + ", password=" + password + ", race=" + race
 				+ ", class_type=" + class_type + ", userRole=" + userRole + "]";
 	}
-	
+			
 }
 

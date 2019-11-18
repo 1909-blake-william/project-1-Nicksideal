@@ -47,6 +47,7 @@ public class AuthUtilServlet extends HttpServlet{
 			} else {
 				resp.setStatus(201);
 				req.getSession().setAttribute("user", loggedInUser);
+				System.out.println("Jae says anything");
 				resp.getWriter().write(om.writeValueAsString(loggedInUser));
 //				resp.getWriter().write(gson.toJson(loggedInUser));
 				return;

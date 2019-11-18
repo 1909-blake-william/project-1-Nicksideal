@@ -18,29 +18,28 @@ public class UserDaoSQL implements UserDao {
 		String password = rs.getString("password");
 		String race = rs.getString("race");
 		String class_type = rs.getString("class_type");
-		int req_user_role_id = rs.getInt("req_user_role_id");
 		String role_type = rs.getString("role_type");
-		return new User(user_id, username, password, race, class_type, new UserRole(req_user_role_id, role_type));
+		return new User(user_id, username, password, race, class_type, role_type);
 	}
 
 	@Override
 	public User findByUsernameAndPassword(String username, String password) {
 		try (Connection c = ConnectionUtil.getConnection()) {
 			System.out.println("arriving to the sequel dao user name = " + username + " password = " + password);
-			String sql = "SELECT * FROM user_table " + "WHERE username = 'DM' AND password = 'pass'";
+			String sql = "SELECT * FROM user_table " + " WHERE username = ? AND password = ?";
+			
+			System.out.println("before arriving to the .preparedStatement with variables: user name = " + username + " password = " + password);
 
 			PreparedStatement ps = c.prepareStatement(sql);
 			ps.setString(1, username);
 			ps.setString(2, password);
+			System.out.println("before reaching execute query with these values: name = " + username + " password = " + password);
 
 			ResultSet rs = ps.executeQuery();
-			User test = extractUser(rs);
-			System.out.println("this should be the user");
-
-			System.out.println(rs + " RS print out");
+			User test;
+			
 			if (rs.next()) {
-
-				System.out.println(test + "this should be the user");
+				test = extractUser(rs);
 				return test;
 
 			} else {
@@ -49,7 +48,7 @@ public class UserDaoSQL implements UserDao {
 
 		} catch (SQLException e) {
 //			 TODO Auto-generated catch block
-//			e.printStackTrace();
+			e.printStackTrace();
 			return null;
 		}
 	}

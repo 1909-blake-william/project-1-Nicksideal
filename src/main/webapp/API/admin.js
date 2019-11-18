@@ -137,7 +137,7 @@ function getCurrentUserInfo() {
         .then(resp => resp.json())
         .then(data => {
             document.getElementById('users-name').innerText = data.username
-            refreshTable();
+            refreshTableAdmin();
             currentUser = data;
         })
         .catch(err => {

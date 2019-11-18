@@ -64,14 +64,14 @@ function getCurrentUserInfo() {
     .then(data => {
         console.log(data);
         document.getElementById('users-name').innerText = data.username
-        //refreshTable();
+        // refreshTable();
         currentUser = data;
     })
     .catch(err => {
         console.log(err);
-        window.location = '/RequestApp/API/Login.html';
+        //window.location = '/RequestApi/API/Login.html';
     })
 }
 
-// getCurrentUserInfo();
+getCurrentUserInfo();
 

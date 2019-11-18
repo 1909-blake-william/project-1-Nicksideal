@@ -60,7 +60,10 @@ function getCurrentUserInfo() {
     fetch('http://localhost:8080/RequestApp/auth/session-user', {
         credentials: 'include'
     })
-    .then(resp => resp.json())
+    .then(resp => {
+        console.log(resp)
+    })
+   
     .then(data => {
         console.log(data);
         document.getElementById('users-name').innerText = data.username

@@ -1,4 +1,4 @@
-let currentUser;
+			let currentUser;
 
 function newRequestSubmit(event) {
     event.preventDefault(); // stop page from refreshing
@@ -56,25 +56,28 @@ function getRequestFromInputs() {
     return request;
 }
 
-function getCurrentUserInfo() {
-    fetch('http://localhost:8080/RequestApp/auth/session-user', {
+async function getCurrentUserInfo() {
+    const response = await fetch('http://localhost:8080/RequestApi/auth/session-user', {
         credentials: 'include'
-    })
-    .then(resp => {
-        console.log(resp)
-    })
+    }).then(resp => resp.json());
+
+    console.log(response);
+    // .then(resp => {
+    //     console.log(resp)
+    //     return resp.json();
+    // })
    
-    .then(data => {
-        console.log(data);
-        document.getElementById('users-name').innerText = data.username
-        // refreshTable();
-        currentUser = data;
-    })
-    .catch(err => {
-        console.log(err);
-        //window.location = '/RequestApi/API/Login.html';
-    })
-}
+    // .then(data => {
+    //     console.log("What is in data" + data);
+    //     document.getElementById('users-name').innerText = data.username
+    //     // refreshTable();
+    //     currentUser = data;
+    // })
+    // .catch(err => {
+    //     console.log(err);
+    //     //window.location = '/RequestApi/API/Login.html';
+    // })
+} 
 
 getCurrentUserInfo();
 
